@@ -8,6 +8,8 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .drag-over { border-color: #6366f1 !important; background-color: rgba(99, 102, 241, 0.1) !important; }
+        .dragging { opacity: 0.5; transform: scale(0.98); }
     </style>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex items-center justify-center p-2 sm:p-4 selection:bg-indigo-500 selection:text-white">
@@ -17,17 +19,17 @@
         <!-- HEADER STATUS -->
         <div class="bg-slate-950 p-4 border-b border-slate-800 flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <div class="w-8 h-8 bg-indigo-600/20 text-indigo-400 rounded-xl flex items-center justify-center text-sm font-bold border border-indigo-500/20 shadow-inner">
+                <div class="w-8 h-8 bg-indigo-600/20 text-indigo-400 rounded-xl flex items-center justify-center text-sm font-bold border border-indigo-500/20 animate-pulse">
                     ⚡
                 </div>
                 <div>
-                    <h1 class="text-sm font-extrabold text-slate-100 tracking-wide">SELESAIKAN TANTANGAN UNTUK LANJUT</h1>
+                    <h1 class="text-sm font-extrabold text-slate-100 tracking-wide uppercase">LAB INFORMATIKA INTERAKTIF</h1>
                     <p class="text-[10px] text-indigo-400 font-semibold uppercase tracking-wider">SMAN 1 TIDORE KEPULAUAN</p>
                 </div>
             </div>
             <div class="flex flex-col items-end">
-                <span class="text-[9px] text-slate-500 font-bold uppercase tracking-widest">Skor</span>
-                <div class="bg-indigo-950 px-3 py-0.5 rounded-lg text-xs font-mono text-amber-400 border border-indigo-800/60 shadow-md">
+                <span class="text-[9px] text-slate-500 font-bold uppercase tracking-widest">Skor Akumulasi</span>
+                <div class="bg-indigo-950 px-3 py-0.5 rounded-lg text-xs font-mono text-amber-400 border border-indigo-800/60 shadow-md shadow-indigo-950">
                     <span id="global-score" class="font-bold">0</span> <span class="text-[10px] text-slate-500">pts</span>
                 </div>
             </div>
@@ -35,48 +37,48 @@
 
         <!-- PROGRESS BAR -->
         <div id="progress-container" class="hidden h-1.5 w-full bg-slate-950 border-b border-slate-800/50">
-            <div id="progress-bar" class="h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-emerald-500 w-0 transition-all duration-500"></div>
+            <div id="progress-bar" class="h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-emerald-500 w-0 transition-all duration-500 ease-out"></div>
         </div>
 
         <!-- SCREEN: WELCOME -->
-        <div id="screen-welcome" class="p-6 sm:p-8 text-center transition-opacity duration-300">
-            <div class="w-20 h-20 bg-indigo-600/10 text-indigo-400 rounded-3xl flex items-center justify-center mx-auto mb-6 text-4xl border border-indigo-500/10 shadow-xl shadow-indigo-950/40">
+        <div id="screen-welcome" class="p-6 sm:p-8 text-center transition-all duration-300 transform">
+            <div class="w-20 h-20 bg-gradient-to-tr from-indigo-600 to-purple-600 text-white rounded-3xl flex items-center justify-center mx-auto mb-6 text-4xl shadow-xl shadow-indigo-950/50 border border-indigo-400/20">
                 🎮
             </div>
-            <h2 class="text-2xl font-black text-white mb-3 tracking-tight">Petualangan Literasi & Logika Digital</h2>
+            <h2 class="text-2xl font-black text-white mb-3 tracking-tight bg-gradient-to-r from-white via-slate-200 to-indigo-400 bg-clip-text text-transparent">Cyber Mission: Astra Digital</h2>
             <p class="text-slate-400 text-xs sm:text-sm mb-8 leading-relaxed max-w-sm mx-auto">
-                Selamat datang! Hadapi <span class="text-indigo-400 font-bold">5 tingkatan tantangan interaktif</span> mulai dari analisis teknologi, gerbang logika, algoritma coding, hingga literasi kritis keamanan informasi.
+                Uji kecakapan logika komputasional, sintaksis, dan keamanan sibermu dalam <span class="text-indigo-400 font-bold">5 Zona Tantangan Praktis</span>.
             </p>
-            <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800/80 mb-8 text-left">
-                <span class="text-[10px] text-slate-500 uppercase font-black tracking-widest block mb-2">Mentor Informatika Bapak:</span>
-                <div class="text-xs font-bold text-slate-300">Afandi Abbas, S.Kom.</div>
+            <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800/80 mb-8 text-left relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-24 h-24 bg-indigo-500/5 rounded-full blur-xl"></div>
+                <span class="text-[10px] text-indigo-400 uppercase font-black tracking-widest block mb-1">Mentor Informatika SMANSA:</span>
+                <div class="text-sm font-extrabold text-slate-200">Afandi Abbas, S.Kom.</div>
             </div>
-            <button onclick="startChallenge()" class="w-full bg-indigo-600 hover:bg-indigo-500 active:scale-[0.99] transition-all font-bold py-3.5 rounded-xl text-sm tracking-wide shadow-lg shadow-indigo-600/20 cursor-pointer text-white">
-                Mulai Petualangan Misi ➔
+            <button onclick="startChallenge()" class="w-full bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 active:scale-[0.99] transition-all font-bold py-3.5 rounded-xl text-sm tracking-wide shadow-lg shadow-indigo-600/20 cursor-pointer text-white">
+                Inisialisasi Sistem Misi ➔
             </button>
         </div>
 
         <!-- SCREEN: MISSION 1 -->
-        <div id="screen-mission-1" class="hidden p-5 sm:p-6">
+        <div id="screen-mission-1" class="hidden p-5 sm:p-6 transition-all duration-300">
             <div class="flex justify-between items-center mb-4">
-                <span class="text-[10px] bg-red-500/10 text-red-400 px-2.5 py-1 rounded-md font-extrabold uppercase tracking-widest border border-red-500/10">Misi 1: Analisis Video</span>
-                <span class="text-[11px] text-slate-400 font-medium">Bobot: <span class="text-slate-200 font-bold">100</span> Pts</span>
+                <span class="text-[10px] bg-rose-500/10 text-rose-400 px-2.5 py-1 rounded-md font-extrabold uppercase tracking-widest border border-rose-500/10">Misi 1: Arsitektur CPU</span>
+                <span class="text-[11px] text-slate-400 font-medium">Bobot: <span class="text-rose-400 font-bold">100</span> Pts</span>
             </div>
-            <h3 class="text-xs sm:text-sm font-bold text-slate-200 mb-3 leading-relaxed">Simak video arsitektur komputer berikut secara seksama, analisis informasi tersembunyi di dalamnya!</h3>
+            <h3 class="text-xs sm:text-sm font-bold text-slate-200 mb-3 leading-relaxed">Analisis video instruksi pemrosesan data komputer di bawah ini dengan cermat!</h3>
             
             <div class="aspect-video w-full rounded-2xl overflow-hidden border border-slate-800 mb-4 bg-black shadow-inner">
-                <!-- URL YouTube diubah ke format embed agar dapat diputar langsung di iframe -->
                 <iframe class="w-full h-full" src="https://www.youtube.com/embed/X1wBOUfAm9c" title="Video Edukasi" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
 
             <div class="bg-slate-950 p-4 rounded-xl border border-slate-800/80 mb-4">
                 <label class="block text-[11px] font-bold text-amber-400 uppercase tracking-wider mb-2">Pertanyaan Analitis:</label>
-                <p class="text-xs text-slate-300 mb-4 leading-relaxed">Berdasarkan pemaparan video, komponen internal manakah di dalam CPU yang bertugas mengambil keputusan dan mengontrol eksekusi instruksi data?</p>
+                <p class="text-xs text-slate-300 mb-4 leading-relaxed">Komponen internal CPU manakah yang berfungsi sebagai jembatan kontrol, mengambil keputusan logika, dan mengatur jalannya eksekusi instruksi?</p>
                 
                 <div class="flex flex-col gap-2">
-                    <button onclick="selectM1(this, false)" class="w-full text-left p-3 bg-slate-900 hover:bg-slate-800 border border-slate-800 rounded-xl text-xs transition cursor-pointer text-slate-400 font-medium">A. RAM (Random Access Memory)</button>
-                    <button onclick="selectM1(this, true)" class="w-full text-left p-3 bg-slate-900 hover:bg-slate-800 border border-slate-800 rounded-xl text-xs transition cursor-pointer text-slate-400 font-medium">B. CU (Control Unit)</button>
-                    <button onclick="selectM1(this, false)" class="w-full text-left p-3 bg-slate-900 hover:bg-slate-800 border border-slate-800 rounded-xl text-xs transition cursor-pointer text-slate-400 font-medium">C. ALU (Arithmetic Logic Unit)</button>
+                    <button onclick="selectM1(this, false)" class="w-full text-left p-3.5 bg-slate-900 hover:bg-slate-800/80 border border-slate-800 hover:border-slate-700 rounded-xl text-xs transition cursor-pointer text-slate-400 font-medium">A. RAM (Random Access Memory)</button>
+                    <button onclick="selectM1(this, true)" class="w-full text-left p-3.5 bg-slate-900 hover:bg-slate-800/80 border border-slate-800 hover:border-slate-700 rounded-xl text-xs transition cursor-pointer text-slate-400 font-medium">B. CU (Control Unit)</button>
+                    <button onclick="selectM1(this, false)" class="w-full text-left p-3.5 bg-slate-900 hover:bg-slate-800/80 border border-slate-800 hover:border-slate-700 rounded-xl text-xs transition cursor-pointer text-slate-400 font-medium">C. ALU (Arithmetic Logic Unit)</button>
                 </div>
             </div>
 
@@ -86,79 +88,99 @@
         </div>
 
         <!-- SCREEN: MISSION 2 -->
-        <div id="screen-mission-2" class="hidden p-5 sm:p-6">
+        <div id="screen-mission-2" class="hidden p-5 sm:p-6 transition-all duration-300">
             <div class="flex justify-between items-center mb-4">
-                <span class="text-[10px] bg-amber-500/10 text-amber-400 px-2.5 py-1 rounded-md font-extrabold uppercase tracking-widest border border-amber-500/10">Misi 2: Logika Sirkuit</span>
-                <span class="text-[11px] text-slate-400 font-medium">Bobot: <span class="text-slate-200 font-bold">100</span> Pts</span>
+                <span class="text-[10px] bg-amber-500/10 text-amber-400 px-2.5 py-1 rounded-md font-extrabold uppercase tracking-widest border border-amber-500/10">Misi 2: Gerbang Logika</span>
+                <span class="text-[11px] text-slate-400 font-medium">Bobot: <span class="text-amber-400 font-bold">100</span> Pts</span>
             </div>
-            <h3 class="text-xs sm:text-sm font-bold text-slate-200 mb-4 leading-relaxed">Sistem membutuhkan tegangan logika 1. Manipulasi kedua saklar input di bawah untuk menyalakan lampu indikator!</h3>
+            <h3 class="text-xs sm:text-sm font-bold text-slate-200 mb-4 leading-relaxed">Gerbang XOR membutuhkan kondisi tertentu untuk menghasilkan output bertegangan tinggi (1). Sesuaikan kedua saklar input!</h3>
 
-            <div class="grid grid-cols-3 gap-3 items-center bg-slate-950 p-5 rounded-2xl border border-slate-800/80 min-h-[140px] mb-5 shadow-inner">
+            <div class="grid grid-cols-3 gap-2 items-center bg-slate-950 p-4 rounded-2xl border border-slate-800/80 min-h-[140px] mb-5 shadow-inner">
                 <div class="flex flex-col gap-3 items-center border-r border-slate-800/60 pr-2">
                     <span class="text-[9px] text-slate-500 font-bold uppercase tracking-wider">Input Node</span>
-                    <button id="btn-input-a" onclick="toggleInput('A')" class="w-16 py-2 bg-slate-900 border border-slate-700 text-slate-300 rounded-xl text-xs font-black tracking-wider transition-all duration-200 shadow-md cursor-pointer">A: 0</button>
-                    <button id="btn-input-b" onclick="toggleInput('B')" class="w-16 py-2 bg-slate-900 border border-slate-700 text-slate-300 rounded-xl text-xs font-black tracking-wider transition-all duration-200 shadow-md cursor-pointer">B: 0</button>
+                    <button id="btn-input-a" onclick="toggleInput('A')" class="w-16 py-2.5 bg-slate-900 border border-slate-700 text-slate-300 rounded-xl text-xs font-black tracking-wider transition-all duration-200 shadow-md cursor-pointer">A: 0</button>
+                    <button id="btn-input-b" onclick="toggleInput('B')" class="w-16 py-2.5 bg-slate-900 border border-slate-700 text-slate-300 rounded-xl text-xs font-black tracking-wider transition-all duration-200 shadow-md cursor-pointer">B: 0</button>
                 </div>
                 <div class="flex flex-col items-center justify-center">
-                    <span class="text-[9px] text-slate-500 font-bold uppercase tracking-wider mb-3">Processor</span>
-                    <div class="bg-indigo-600/10 text-indigo-400 border border-indigo-500/30 font-extrabold text-sm px-4 py-2 rounded-xl tracking-widest shadow-lg">XOR</div>
+                    <span class="text-[9px] text-slate-500 font-bold uppercase tracking-wider mb-3">Operator</span>
+                    <div class="bg-indigo-600/10 text-indigo-400 border border-indigo-500/30 font-extrabold text-xs px-4 py-2 rounded-xl tracking-widest shadow-lg">XOR</div>
                 </div>
                 <div class="flex flex-col items-center justify-center border-l border-slate-800/60 pl-2">
-                    <span class="text-[9px] text-slate-500 font-bold uppercase tracking-wider mb-2">Gate Output</span>
-                    <div id="lamp-display" class="w-12 h-12 bg-slate-900 rounded-full border border-slate-700 flex items-center justify-center text-xl transition-all duration-300 shadow-inner">📁</div>
+                    <span class="text-[9px] text-slate-500 font-bold uppercase tracking-wider mb-2">Output State</span>
+                    <div id="lamp-display" class="w-12 h-12 bg-slate-900 rounded-full border border-slate-700 flex items-center justify-center text-xl transition-all duration-300 shadow-inner">🔒</div>
                 </div>
             </div>
 
-            <button onclick="submitM2()" class="w-full bg-emerald-600 hover:bg-emerald-500 font-bold py-3 rounded-xl text-sm tracking-wide shadow-lg shadow-emerald-600/10 transition cursor-pointer text-white">
+            <button onclick="submitM2()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-xl text-sm tracking-wide shadow-lg shadow-emerald-600/10 transition cursor-pointer">
                 Validasi Logika Sirkuit ⚡
             </button>
         </div>
 
-        <!-- SCREEN: MISSION 3 -->
-        <div id="screen-mission-3" class="hidden p-5 sm:p-6">
-            <div class="flex justify-between items-center mb-4">
-                <span class="text-[10px] bg-emerald-500/10 text-emerald-400 px-2.5 py-1 rounded-md font-extrabold uppercase tracking-widest border border-emerald-500/10">Misi 3: Algoritma Coding</span>
-                <span class="text-[11px] text-slate-400 font-medium">Bobot: <span class="text-slate-200 font-bold">100</span> Pts</span>
+        <!-- SCREEN: MISSION 3 (DRAG AND DROP) -->
+        <div id="screen-mission-3" class="hidden p-5 sm:p-6 transition-all duration-300">
+            <div class="flex justify-between items-center mb-3">
+                <span class="text-[10px] bg-emerald-500/10 text-emerald-400 px-2.5 py-1 rounded-md font-extrabold uppercase tracking-widest border border-emerald-500/10">Misi 3: Struktur PHP</span>
+                <span class="text-[11px] text-slate-400 font-medium">Bobot: <span class="text-emerald-400 font-bold">100</span> Pts</span>
             </div>
-            <h3 class="text-xs sm:text-sm font-bold text-slate-200 mb-2 leading-relaxed">Bagaimana struktur penulisan variabel yang valid pada bahasa pemrograman PHP?</h3>
-            <p class="text-[11px] text-slate-400 mb-4">Klik tombol opsi di bawah secara berurutan sesuai urutan logika algoritma yang tepat (1 ➔ 2 ➔ 3):</p>
+            <h3 class="text-xs sm:text-sm font-bold text-slate-200 mb-1 leading-relaxed">Tantangan Struktur Variabel Valid PHP</h3>
+            <p class="text-[11px] text-slate-400 mb-4">Seret blok kode di bawah dan susun ke dalam kotak tujuan sesuai aturan urutan sintaks yang benar:</p>
 
-            <div class="flex flex-col gap-2.5 mb-5">
-                <button id="code-opt-1" onclick="clickCodeOrder(1, this)" class="w-full text-left p-3 bg-slate-950 border border-slate-800 hover:border-indigo-500/40 rounded-xl text-xs font-mono text-indigo-300 transition duration-150 cursor-pointer shadow-md">... Memberikan nilai data menggunakan operator assignment (=)</button>
-                <button id="code-opt-2" onclick="clickCodeOrder(2, this)" class="w-full text-left p-3 bg-slate-950 border border-slate-800 hover:border-indigo-500/40 rounded-xl text-xs font-mono text-indigo-300 transition duration-150 cursor-pointer shadow-md">... Diawali karakter spesial dollar ($) lalu diikuti nama variabel</button>
-                <button id="code-opt-3" onclick="clickCodeOrder(3, this)" class="w-full text-left p-3 bg-slate-950 border border-slate-800 hover:border-indigo-500/40 rounded-xl text-xs font-mono text-indigo-300 transition duration-150 cursor-pointer shadow-md">... Diakhiri penutup statement tanda semicolon atau titik koma (;)</button>
+            <!-- Sumber Drag (Draggable Blocks) -->
+            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 mb-4">
+                <span class="text-[9px] text-slate-500 uppercase font-bold tracking-wider block mb-2">Blok Kode (Silakan Tarik):</span>
+                <div id="drag-source-container" class="flex flex-col gap-2">
+                    <div id="drag-item-assignment" draggable="true" ondragstart="handleDragStart(event)" class="p-3 bg-slate-900 border border-slate-700 hover:border-slate-500 rounded-xl text-xs font-mono text-indigo-300 cursor-grab active:cursor-grabbing select-none transition shadow flex items-center gap-2">
+                        <span>⣿</span> <code class="text-amber-400">= 'Fandi'</code> (Assignment Nilai)
+                    </div>
+                    <div id="drag-item-declaration" draggable="true" ondragstart="handleDragStart(event)" class="p-3 bg-slate-900 border border-slate-700 hover:border-slate-500 rounded-xl text-xs font-mono text-indigo-300 cursor-grab active:cursor-grabbing select-none transition shadow flex items-center gap-2">
+                        <span>⣿</span> <code class="text-emerald-400">$namaVariabel</code> (Inisialisasi $)
+                    </div>
+                    <div id="drag-item-semicolon" draggable="true" ondragstart="handleDragStart(event)" class="p-3 bg-slate-900 border border-slate-700 hover:border-slate-500 rounded-xl text-xs font-mono text-indigo-300 cursor-grab active:cursor-grabbing select-none transition shadow flex items-center gap-2">
+                        <span>⣿</span> <code class="text-rose-400">;</code> (Penutup Semicolon)
+                    </div>
+                </div>
             </div>
 
-            <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800 text-xs text-emerald-400 font-mono min-h-[48px] flex items-center shadow-inner tracking-wide" id="code-preview">
-                Terminal Code: [Belum ada pilihan]
+            <!-- Tempat Drop (Dropzone) -->
+            <div class="flex flex-col gap-2.5">
+                <span class="text-[9px] text-slate-500 uppercase font-bold tracking-wider block">Kotak Susunan Algoritma:</span>
+                <div id="dropzone-1" data-expected="drag-item-declaration" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)" class="w-full min-h-[46px] border-2 border-dashed border-slate-800 rounded-xl flex items-center justify-center text-xs text-slate-500 font-medium transition duration-150 bg-slate-950/40 p-2">
+                    Langkah 1: Identifikasi Komponen Identitas Variabel
+                </div>
+                <div id="dropzone-2" data-expected="drag-item-assignment" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)" class="w-full min-h-[46px] border-2 border-dashed border-slate-800 rounded-xl flex items-center justify-center text-xs text-slate-500 font-medium transition duration-150 bg-slate-950/40 p-2">
+                    Langkah 2: Proses Penugasan Nilai Operator
+                </div>
+                <div id="dropzone-3" data-expected="drag-item-semicolon" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)" class="w-full min-h-[46px] border-2 border-dashed border-slate-800 rounded-xl flex items-center justify-center text-xs text-slate-500 font-medium transition duration-150 bg-slate-950/40 p-2">
+                    Langkah 3: Terminasi Statement Kode Akhir
+                </div>
             </div>
 
-            <button onclick="submitM3()" class="w-full mt-5 bg-indigo-600 hover:bg-indigo-500 font-bold py-3 rounded-xl text-sm tracking-wide shadow-lg shadow-indigo-600/10 transition cursor-pointer text-white">
-                Kompilasi Struktur Kode ➔
+            <button onclick="submitM3()" class="w-full mt-5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 rounded-xl text-sm tracking-wide shadow-lg shadow-indigo-600/10 transition cursor-pointer">
+                Kompilasi & Periksa Struktur Kode ➔
             </button>
         </div>
 
         <!-- SCREEN: MISSION 4 -->
-        <div id="screen-mission-4" class="hidden p-5 sm:p-6">
+        <div id="screen-mission-4" class="hidden p-5 sm:p-6 transition-all duration-300">
             <div class="flex justify-between items-center mb-4">
-                <span class="text-[10px] bg-purple-500/10 text-purple-400 px-2.5 py-1 rounded-md font-extrabold uppercase tracking-widest border border-purple-500/10">Misi 4: Keamanan Siber</span>
-                <span class="text-[11px] text-slate-400 font-medium">Bobot: <span class="text-slate-200 font-bold">100</span> Pts</span>
+                <span class="text-[10px] bg-purple-500/10 text-purple-400 px-2.5 py-1 rounded-md font-extrabold uppercase tracking-widest border border-purple-500/10">Misi 4: Rekayasa Sosial</span>
+                <span class="text-[11px] text-slate-400 font-medium">Bobot: <span class="text-purple-400 font-bold">100</span> Pts</span>
             </div>
-            <h3 class="text-xs sm:text-sm font-bold text-slate-200 mb-3 leading-relaxed">Gunakan kecakapan literasi digitalmu untuk menganalisis studi kasus ancaman berikut:</h3>
+            <h3 class="text-xs sm:text-sm font-bold text-slate-200 mb-3 leading-relaxed">Gunakan kompetensi literasi digital untuk memecahkan insiden berikut:</h3>
             
-            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800/80 mb-4 max-h-40 overflow-y-auto text-xs text-slate-400 leading-relaxed custom-scrollbar">
-                <span class="text-[9px] bg-amber-500/10 text-amber-400 font-bold px-2 py-0.5 rounded uppercase block w-max mb-2 tracking-wider">Studi Kasus Email Palsu</span>
-                "Seorang pengguna menerima email mendesak yang mengatasnamakan Bank Digital Nasional, mengabarkan bahwa akunnya akan diblokir dalam 24 jam jika tidak segera mengklik tautan verifikasi yang dilampirkan. Saat diteliti, alamat pengirim adalah <code class="text-red-400 font-mono font-bold bg-red-500/5 px-1 rounded">admin@bank-nasional-verifikasi3.com</code> dan tautan tersebut meminta data nomor kartu beserta PIN ATM."
+            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800/80 mb-4 text-xs text-slate-400 leading-relaxed shadow-inner">
+                <span class="text-[9px] bg-amber-500/10 text-amber-400 font-bold px-2 py-0.5 rounded uppercase block w-max mb-2 tracking-wider">Log Analisis Masuk</span>
+                "Seorang pegawai administrasi sekolah menerima pesan mendesak via email yang mengatasnamakan lembaga pusat. Meminta konfirmasi data sensitif GTK melalui tautan <code class="text-red-400 font-mono font-bold bg-red-500/5 px-1 rounded">admin@pangkalan-data-dikti.xyz</code> dalam waktu terbatas agar akun tidak dinonaktifkan."
             </div>
 
             <div class="bg-slate-950 p-4 rounded-xl border border-slate-800/80 mb-4">
                 <label class="block text-[11px] font-bold text-amber-400 uppercase tracking-wider mb-2">Pertanyaan Evaluasi:</label>
-                <p class="text-xs text-slate-300 mb-4 leading-relaxed">Berdasarkan indikator teks di atas, serangan siber jenis apakah yang sedang dilancarkan penyerang tersebut?</p>
+                <p class="text-xs text-slate-300 mb-4 leading-relaxed">Berdasarkan teknik manipulasi psikologis di atas, jenis eksploitasi keamanan siber apa yang sedang terjadi?</p>
                 
                 <div class="flex flex-col gap-2">
-                    <button onclick="selectM4(this, false)" class="w-full text-left p-3 bg-slate-900 hover:bg-slate-800 border border-slate-800 rounded-xl text-xs transition cursor-pointer text-slate-400 font-medium">A. DDoS Attack (Membanjiri trafik server)</button>
-                    <button onclick="selectM4(this, true)" class="w-full text-left p-3 bg-slate-900 hover:bg-slate-800 border border-slate-800 rounded-xl text-xs transition cursor-pointer text-slate-400 font-medium">B. Phishing (Rekayasa sosial penipuan data)</button>
-                    <button onclick="selectM4(this, false)" class="w-full text-left p-3 bg-slate-900 hover:bg-slate-800 border border-slate-800 rounded-xl text-xs transition cursor-pointer text-slate-400 font-medium">C. Ransomware (Penyanderaan enkripsi berkas)</button>
+                    <button onclick="selectM4(this, false)" class="w-full text-left p-3.5 bg-slate-900 hover:bg-slate-800/80 border border-slate-800 rounded-xl text-xs transition cursor-pointer text-slate-400 font-medium">A. DDoS (Membanjiri beban kapasitas server)</button>
+                    <button onclick="selectM4(this, true)" class="w-full text-left p-3.5 bg-slate-900 hover:bg-slate-800/80 border border-slate-800 rounded-xl text-xs transition cursor-pointer text-slate-400 font-medium">B. Phishing (Penipuan manipulatif pencurian kredensial)</button>
+                    <button onclick="selectM4(this, false)" class="w-full text-left p-3.5 bg-slate-900 hover:bg-slate-800/80 border border-slate-800 rounded-xl text-xs transition cursor-pointer text-slate-400 font-medium">C. Ransomware (Penguncian berkas sistem dengan tebusan)</button>
                 </div>
             </div>
 
@@ -168,21 +190,21 @@
         </div>
 
         <!-- SCREEN: MISSION 5 -->
-        <div id="screen-mission-5" class="hidden p-5 sm:p-6">
+        <div id="screen-mission-5" class="hidden p-5 sm:p-6 transition-all duration-300">
             <div class="flex justify-between items-center mb-4">
-                <span class="text-[10px] bg-cyan-500/10 text-cyan-400 px-2.5 py-1 rounded-md font-extrabold uppercase tracking-widest border border-cyan-500/10">Misi 5: Kecerdasan Buatan (AI)</span>
-                <span class="text-[11px] text-slate-400 font-medium">Bobot: <span class="text-slate-200 font-bold">100</span> Pts</span>
+                <span class="text-[10px] bg-cyan-500/10 text-cyan-400 px-2.5 py-1 rounded-md font-extrabold uppercase tracking-widest border border-cyan-500/10">Misi 5: Logika Data AI</span>
+                <span class="text-[11px] text-slate-400 font-medium">Bobot: <span class="text-cyan-400 font-bold">100</span> Pts</span>
             </div>
-            <h3 class="text-xs sm:text-sm font-bold text-slate-200 mb-3 leading-relaxed">Tantangan Berpikir Kritis tingkat tinggi (HOTS) terkait perkembangan teknologi masa depan:</h3>
+            <h3 class="text-xs sm:text-sm font-bold text-slate-200 mb-3 leading-relaxed">Tantangan penalaran kritis HOTS perkembangan Kecerdasan Buatan (AI):</h3>
 
             <div class="bg-slate-950 p-4 rounded-xl border border-slate-800/80 mb-4">
-                <label class="block text-[11px] font-bold text-cyan-400 uppercase tracking-wider mb-2">Kasus Halusinasi Data:</label>
-                <p class="text-xs text-slate-300 mb-4 leading-relaxed">Ketika Generative AI memberikan jawaban yang terdengar sangat meyakinkan namun sebenarnya salah, tidak akurat, atau sepenuhnya fiktif karena keterbatasan basis data, fenomena ini disebut sebagai apa?</p>
+                <label class="block text-[11px] font-bold text-cyan-400 uppercase tracking-wider mb-2">Kasus Kerusakan Validitas:</label>
+                <p class="text-xs text-slate-300 mb-4 leading-relaxed">Saat mesin Large Language Model (LLM) menyajikan narasi jawaban yang salah secara faktual namun dikemas dengan tata bahasa yang sangat meyakinkan akibat bias atau limitasi data training, anomali ini disebut?</p>
                 
                 <div class="flex flex-col gap-2">
-                    <button onclick="selectM5(this, true)" class="w-full text-left p-3 bg-slate-900 hover:bg-slate-800 border border-slate-800 rounded-xl text-xs transition cursor-pointer text-slate-400 font-medium">A. Artificial Hallucination (Halusinasi AI)</button>
-                    <button onclick="selectM5(this, false)" class="w-full text-left p-3 bg-slate-900 hover:bg-slate-800 border border-slate-800 rounded-xl text-xs transition cursor-pointer text-slate-400 font-medium">B. Deep Learning Error (Kegagalan Algoritma)</button>
-                    <button onclick="selectM5(this, false)" class="w-full text-left p-3 bg-slate-900 hover:bg-slate-800 border border-slate-800 rounded-xl text-xs transition cursor-pointer text-slate-400 font-medium">C. Data Overfitting (Data terlalu spesifik)</button>
+                    <button onclick="selectM5(this, true)" class="w-full text-left p-3.5 bg-slate-900 hover:bg-slate-800/80 border border-slate-800 rounded-xl text-xs transition cursor-pointer text-slate-400 font-medium">A. Artificial Hallucination (Halusinasi Eksplisit AI)</button>
+                    <button onclick="selectM5(this, false)" class="w-full text-left p-3.5 bg-slate-900 hover:bg-slate-800/80 border border-slate-800 rounded-xl text-xs transition cursor-pointer text-slate-400 font-medium">B. Loss Function Error (Kelemahan Matematis Algoritma)</button>
+                    <button onclick="selectM5(this, false)" class="w-full text-left p-3.5 bg-slate-900 hover:bg-slate-800/80 border border-slate-800 rounded-xl text-xs transition cursor-pointer text-slate-400 font-medium">C. Dataset Overfitting (Kondisi data terlalu kaku)</button>
                 </div>
             </div>
 
@@ -192,17 +214,17 @@
         </div>
 
         <!-- SCREEN: RESULT -->
-        <div id="screen-result" class="hidden p-6 sm:p-8 text-center">
-            <div class="w-20 h-20 bg-emerald-500/10 text-emerald-400 rounded-full flex items-center justify-center mx-auto mb-4 text-4xl shadow-lg shadow-emerald-950/50">🏆</div>
-            <h2 class="text-2xl font-black text-white mb-1 tracking-tight">Misi Selesai, Digital Hero!</h2>
-            <p class="text-slate-400 text-xs sm:text-sm mb-6 leading-relaxed max-w-xs mx-auto">Selamat! Kamu telah menuntaskan seluruh rantai kompetensi literasi informatika secara komprehensif.</p>
+        <div id="screen-result" class="hidden p-6 sm:p-8 text-center transition-all duration-300">
+            <div class="w-20 h-20 bg-gradient-to-tr from-emerald-500 to-teal-500 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-4xl shadow-lg shadow-emerald-950/50 border border-emerald-400/20 animate-bounce">🏆</div>
+            <h2 class="text-2xl font-black text-white mb-1 tracking-tight">Evaluasi Misi Tuntas!</h2>
+            <p class="text-slate-400 text-xs sm:text-sm mb-6 leading-relaxed max-w-xs mx-auto">Luar biasa! Seluruh pos kompetensi dasar literasi digital berhasil dipecahkan.</p>
             
-            <div class="bg-slate-950 p-5 rounded-2xl mb-6 border border-slate-800 max-w-sm mx-auto">
-                <span class="text-[10px] text-slate-500 font-extrabold uppercase tracking-widest block">Total Akumulasi Skor</span>
-                <div id="final-score" class="text-4xl font-black text-amber-400 mt-1 font-mono">0</div>
-                <div class="text-[10px] text-emerald-400 mt-2 font-semibold">Status: Kompeten / Lolos Kurikulum Interaktif</div>
+            <div class="bg-slate-950 p-5 rounded-2xl mb-6 border border-slate-800 max-w-sm mx-auto shadow-inner">
+                <span class="text-[10px] text-slate-500 font-extrabold uppercase tracking-widest block">Total Nilai Perolehan</span>
+                <div id="final-score" class="text-4xl font-black text-amber-400 mt-1 font-mono tracking-tight">0</div>
+                <div class="text-[10px] text-emerald-400 mt-2 font-bold uppercase tracking-wider">Status: Kompeten Unggul</div>
             </div>
-            <button onclick="resetGame()" class="w-full bg-slate-800 hover:bg-slate-700 font-bold py-3 rounded-xl text-sm transition text-slate-200 cursor-pointer">Main Ulang Materi</button>
+            <button onclick="resetGame()" class="w-full bg-gradient-to-r from-slate-800 to-slate-800/60 hover:from-slate-700 hover:to-slate-700/80 text-white font-bold py-3 rounded-xl text-sm transition cursor-pointer shadow">Main Ulang Materi</button>
         </div>
 
     </main>
@@ -213,9 +235,37 @@
         let m4Correct = false;
         let m5Correct = false;
         let inputA = 0; let inputB = 0;
-        let selectedCodeOrder = [];
-
         const totalMissions = 5;
+
+        // Sound Generator (Web Audio API) untuk interaktivitas audio tanpa file eksternal
+        function playBeep(type) {
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioCtx.createOscillator();
+                const gainNode = audioCtx.createGain();
+                oscillator.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+
+                if (type === 'success') {
+                    oscillator.frequency.setValueAtTime(587.33, audioCtx.currentTime); // D5
+                    oscillator.frequency.setValueAtTime(880, audioCtx.currentTime + 0.1);  // A5
+                    gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                    oscillator.start();
+                    oscillator.stop(audioCtx.currentTime + 0.25);
+                } else if (type === 'fail') {
+                    oscillator.type = 'sawtooth';
+                    oscillator.frequency.setValueAtTime(150, audioCtx.currentTime);
+                    gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                    oscillator.start();
+                    oscillator.stop(audioCtx.currentTime + 0.3);
+                } else if (type === 'click') {
+                    oscillator.frequency.setValueAtTime(440, audioCtx.currentTime);
+                    gainNode.gain.setValueAtTime(0.05, audioCtx.currentTime);
+                    oscillator.start();
+                    oscillator.stop(audioCtx.currentTime + 0.05);
+                }
+            } catch(e) { console.log('Audio Context Not Supported'); }
+        }
 
         function setProgressBar(missionNumber) {
             const bar = document.getElementById('progress-bar');
@@ -230,33 +280,36 @@
         }
 
         function startChallenge() {
+            playBeep('click');
             document.getElementById('progress-container').classList.remove('hidden');
             setProgressBar(1);
             changeScreen('screen-mission-1');
         }
 
-        // --- MISI 1 (VIDEO) ---
+        // --- MISI 1 (VIDEO ANALYSIS) ---
         function selectM1(element, isCorrect) {
+            playBeep('click');
             m1Correct = isCorrect;
             element.parentNode.querySelectorAll('button').forEach(btn => {
-                btn.className = "w-full text-left p-3 bg-slate-900 border border-slate-800 rounded-xl text-xs transition cursor-pointer text-slate-400 font-medium";
+                btn.className = "w-full text-left p-3.5 bg-slate-900 border border-slate-800 rounded-xl text-xs transition cursor-pointer text-slate-400 font-medium";
             });
-            element.className = "w-full text-left p-3 bg-indigo-600/20 border border-indigo-500 rounded-xl text-xs transition font-semibold text-indigo-300 cursor-pointer shadow-md";
+            element.className = "w-full text-left p-3.5 bg-indigo-600/20 border border-indigo-500 rounded-xl text-xs transition font-extrabold text-indigo-300 cursor-pointer shadow-md";
             
             const nextBtn = document.getElementById('btn-next-1');
             nextBtn.disabled = false;
-            nextBtn.className = "w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 rounded-xl text-sm transition shadow-lg shadow-indigo-600/10 cursor-pointer";
+            nextBtn.className = "w-full bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 text-white font-bold py-3 rounded-xl text-sm transition shadow-lg shadow-indigo-600/10 cursor-pointer";
         }
         
         function submitM1() {
-            if(m1Correct) globalScore += 100;
+            if(m1Correct) { globalScore += 100; playBeep('success'); } else { playBeep('fail'); }
             document.getElementById('global-score').innerText = globalScore;
             setProgressBar(2);
             changeScreen('screen-mission-2');
         }
 
-        // --- MISI 2 (CIRCUIT) ---
+        // --- MISI 2 (LOGIC CIRCUIT) ---
         function toggleInput(type) {
+            playBeep('click');
             if(type === 'A') inputA = inputA === 0 ? 1 : 0;
             else inputB = inputB === 0 ? 1 : 0;
             
@@ -264,39 +317,77 @@
             const btnB = document.getElementById('btn-input-b');
             btnA.innerText = `A: ${inputA}`; btnB.innerText = `B: ${inputB}`;
             
-            btnA.className = inputA === 1 ? "w-16 py-2 bg-indigo-600 border border-indigo-400 text-white rounded-xl text-xs font-black tracking-wider shadow-lg shadow-indigo-600/20 cursor-pointer" : "w-16 py-2 bg-slate-900 border border-slate-700 text-slate-400 rounded-xl text-xs font-black tracking-wider cursor-pointer";
-            btnB.className = inputB === 1 ? "w-16 py-2 bg-indigo-600 border border-indigo-400 text-white rounded-xl text-xs font-black tracking-wider shadow-lg shadow-indigo-600/20 cursor-pointer" : "w-16 py-2 bg-slate-900 border border-slate-700 text-slate-400 rounded-xl text-xs font-black tracking-wider cursor-pointer";
+            btnA.className = inputA === 1 ? "w-16 py-2.5 bg-indigo-600 border border-indigo-400 text-white rounded-xl text-xs font-black tracking-wider shadow-lg shadow-indigo-600/20 cursor-pointer" : "w-16 py-2.5 bg-slate-900 border border-slate-700 text-slate-400 rounded-xl text-xs font-black tracking-wider cursor-pointer";
+            btnB.className = inputB === 1 ? "w-16 py-2.5 bg-indigo-600 border border-indigo-400 text-white rounded-xl text-xs font-black tracking-wider shadow-lg shadow-indigo-600/20 cursor-pointer" : "w-16 py-2.5 bg-slate-900 border border-slate-700 text-slate-400 rounded-xl text-xs font-black tracking-wider cursor-pointer";
 
             const lamp = document.getElementById('lamp-display');
             if(inputA ^ inputB) {
-                lamp.className = "w-12 h-12 bg-amber-400 rounded-full flex items-center justify-center text-xl shadow-lg shadow-amber-400/50 text-slate-950 font-black";
+                lamp.className = "w-12 h-12 bg-amber-400 rounded-full flex items-center justify-center text-xl shadow-lg shadow-amber-400/50 text-slate-950 font-black border border-amber-300 animate-pulse";
                 lamp.innerText = "💡";
             } else {
                 lamp.className = "w-12 h-12 bg-slate-900 rounded-full border border-slate-700 flex items-center justify-center text-xl text-slate-500 shadow-inner";
-                lamp.innerText = "📁";
+                lamp.innerText = "🔒";
             }
         }
         
         function submitM2() {
-            if(inputA ^ inputB) globalScore += 100;
+            if(inputA ^ inputB) { globalScore += 100; playBeep('success'); } else { playBeep('fail'); }
             document.getElementById('global-score').innerText = globalScore;
             setProgressBar(3);
             changeScreen('screen-mission-3');
         }
 
-        // --- MISI 3 (CODING) ---
-        function clickCodeOrder(id, element) {
-            if(selectedCodeOrder.includes(id)) return;
-            selectedCodeOrder.push(id);
-            element.className = "w-full text-left p-3 bg-slate-900 border border-slate-800 text-slate-600 rounded-xl text-xs font-mono line-through cursor-not-allowed opacity-40 shadow-none";
-            
-            const mapping = { 2: "$nama", 1: " = 'Fandi'", 3: ";" };
-            const previewText = selectedCodeOrder.map(i => mapping[i]).join("");
-            document.getElementById('code-preview').innerText = `Terminal Code: ${previewText}`;
+        // --- MISI 3 (DRAG AND DROP LOGIC) ---
+        function handleDragStart(e) {
+            e.dataTransfer.setData("text/plain", e.target.id);
+            e.target.classList.add('dragging');
         }
-        
+
+        document.addEventListener("dragend", function(e) {
+            if(e.target.classList.contains('dragging')) {
+                e.target.classList.remove('dragging');
+            }
+        });
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            if (e.currentTarget.classList.contains('border-dashed')) {
+                e.currentTarget.classList.add('drag-over');
+            }
+        }
+
+        function handleDragLeave(e) {
+            e.currentTarget.classList.remove('drag-over');
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            e.currentTarget.classList.remove('drag-over');
+            const id = e.dataTransfer.getData("text/plain");
+            const draggedElement = document.getElementById(id);
+            
+            if (draggedElement && e.currentTarget.childNodes.length <= 1) {
+                playBeep('click');
+                // Pindahkan elemen masuk ke dalam dropzone
+                e.currentTarget.innerHTML = ""; 
+                e.currentTarget.appendChild(draggedElement);
+                e.currentTarget.className = "w-full min-h-[46px] border-2 border-solid border-indigo-500 rounded-xl flex items-center justify-center text-xs text-slate-200 font-medium transition bg-slate-900 p-2 shadow-inner";
+            }
+        }
+
         function submitM3() {
-            if(JSON.stringify(selectedCodeOrder) === JSON.stringify([2, 1, 3])) globalScore += 100;
+            const z1 = document.getElementById('dropzone-1').firstElementChild;
+            const z2 = document.getElementById('dropzone-2').firstElementChild;
+            const z3 = document.getElementById('dropzone-3').firstElementChild;
+
+            let m3Valid = false;
+            if(z1 && z2 && z3) {
+                if(z1.id === 'drag-item-declaration' && z2.id === 'drag-item-assignment' && z3.id === 'drag-item-semicolon') {
+                    m3Valid = true;
+                }
+            }
+
+            if(m3Valid) { globalScore += 100; playBeep('success'); } else { playBeep('fail'); }
             document.getElementById('global-score').innerText = globalScore;
             setProgressBar(4);
             changeScreen('screen-mission-4');
@@ -304,39 +395,41 @@
 
         // --- MISI 4 (CYBER SECURITY) ---
         function selectM4(element, isCorrect) {
+            playBeep('click');
             m4Correct = isCorrect;
             element.parentNode.querySelectorAll('button').forEach(btn => {
-                btn.className = "w-full text-left p-3 bg-slate-900 border border-slate-800 rounded-xl text-xs transition cursor-pointer text-slate-400 font-medium";
+                btn.className = "w-full text-left p-3.5 bg-slate-900 border border-slate-800 rounded-xl text-xs transition cursor-pointer text-slate-400 font-medium";
             });
-            element.className = "w-full text-left p-3 bg-purple-600/20 border border-purple-500 rounded-xl text-xs transition font-semibold text-purple-300 cursor-pointer shadow-md";
+            element.className = "w-full text-left p-3.5 bg-purple-600/20 border border-purple-500 rounded-xl text-xs transition font-extrabold text-purple-300 cursor-pointer shadow-md";
             
             const nextBtn = document.getElementById('btn-next-4');
             nextBtn.disabled = false;
-            nextBtn.className = "w-full bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 rounded-xl text-sm transition shadow-lg shadow-purple-600/10 cursor-pointer";
+            nextBtn.className = "w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-500 hover:to-purple-600 text-white font-bold py-3 rounded-xl text-sm transition shadow-lg shadow-purple-600/10 cursor-pointer";
         }
         
         function submitM4() {
-            if(m4Correct) globalScore += 100;
+            if(m4Correct) { globalScore += 100; playBeep('success'); } else { playBeep('fail'); }
             document.getElementById('global-score').innerText = globalScore;
             setProgressBar(5);
             changeScreen('screen-mission-5');
         }
 
-        // --- MISI 5 (AI LITERACY) ---
+        // --- MISI 5 (AI COMPREHENSION) ---
         function selectM5(element, isCorrect) {
+            playBeep('click');
             m5Correct = isCorrect;
             element.parentNode.querySelectorAll('button').forEach(btn => {
-                btn.className = "w-full text-left p-3 bg-slate-900 border border-slate-800 rounded-xl text-xs transition cursor-pointer text-slate-400 font-medium";
+                btn.className = "w-full text-left p-3.5 bg-slate-900 border border-slate-800 rounded-xl text-xs transition cursor-pointer text-slate-400 font-medium";
             });
-            element.className = "w-full text-left p-3 bg-cyan-600/20 border border-cyan-500 rounded-xl text-xs transition font-semibold text-cyan-300 cursor-pointer shadow-md";
+            element.className = "w-full text-left p-3.5 bg-cyan-600/20 border border-cyan-500 rounded-xl text-xs transition font-extrabold text-cyan-300 cursor-pointer shadow-md";
             
             const nextBtn = document.getElementById('btn-next-5');
             nextBtn.disabled = false;
-            nextBtn.className = "w-full bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-xl text-sm transition shadow-lg shadow-cyan-600/10 cursor-pointer";
+            nextBtn.className = "w-full bg-gradient-to-r from-cyan-600 to-cyan-700 hover:from-cyan-500 hover:to-cyan-600 text-white font-bold py-3 rounded-xl text-sm transition shadow-lg shadow-cyan-600/10 cursor-pointer";
         }
         
         function submitM5() {
-            if(m5Correct) globalScore += 100;
+            if(m5Correct) { globalScore += 100; playBeep('success'); } else { playBeep('fail'); }
             document.getElementById('global-score').innerText = globalScore;
             
             document.getElementById('progress-bar').style.width = '100%';
@@ -345,27 +438,37 @@
         }
 
         function resetGame() {
+            playBeep('click');
             globalScore = 0;
             m1Correct = false; m4Correct = false; m5Correct = false;
             inputA = 0; inputB = 0;
-            selectedCodeOrder = [];
             document.getElementById('global-score').innerText = 0;
-            document.getElementById('code-preview').innerText = "Terminal Code: [Belum ada pilihan]";
             
-            [1,2,3].forEach(i => {
-                document.getElementById(`code-opt-${i}`).className = "w-full text-left p-3 bg-slate-950 border border-slate-800 hover:border-indigo-500/40 rounded-xl text-xs font-mono text-indigo-300 transition duration-150 cursor-pointer shadow-md";
-            });
+            // Kembalikan susunan Drag & Drop Misi 3 ke posisi semula
+            const sourceContainer = document.getElementById('drag-source-container');
+            sourceContainer.innerHTML = `
+                <div id="drag-item-assignment" draggable="true" ondragstart="handleDragStart(event)" class="p-3 bg-slate-900 border border-slate-700 hover:border-slate-500 rounded-xl text-xs font-mono text-indigo-300 cursor-grab active:cursor-grabbing select-none transition shadow flex items-center gap-2"><span>⣿</span> <code class="text-amber-400">= 'Fandi'</code></div>
+                <div id="drag-item-declaration" draggable="true" ondragstart="handleDragStart(event)" class="p-3 bg-slate-900 border border-slate-700 hover:border-slate-500 rounded-xl text-xs font-mono text-indigo-300 cursor-grab active:cursor-grabbing select-none transition shadow flex items-center gap-2"><span>⣿</span> <code class="text-emerald-400">$namaVariabel</code></div>
+                <div id="drag-item-semicolon" draggable="true" ondragstart="handleDragStart(event)" class="p-3 bg-slate-900 border border-slate-700 hover:border-slate-500 rounded-xl text-xs font-mono text-indigo-300 cursor-grab active:cursor-grabbing select-none transition shadow flex items-center gap-2"><span>⣿</span> <code class="text-rose-400">;</code></div>
+            `;
             
-            // Set ulang saklar lampu ke 0
+            document.getElementById('dropzone-1').className = "w-full min-h-[46px] border-2 border-dashed border-slate-800 rounded-xl flex items-center justify-center text-xs text-slate-500 font-medium transition duration-150 bg-slate-950/40 p-2";
+            document.getElementById('dropzone-1').innerText = "Langkah 1: Identifikasi Komponen Identitas Variabel";
+            document.getElementById('dropzone-2').className = "w-full min-h-[46px] border-2 border-dashed border-slate-800 rounded-xl flex items-center justify-center text-xs text-slate-500 font-medium transition duration-150 bg-slate-950/40 p-2";
+            document.getElementById('dropzone-2').innerText = "Langkah 2: Proses Penugasan Nilai Operator";
+            document.getElementById('dropzone-3').className = "w-full min-h-[46px] border-2 border-dashed border-slate-800 rounded-xl flex items-center justify-center text-xs text-slate-500 font-medium transition duration-150 bg-slate-950/40 p-2";
+            document.getElementById('dropzone-3').innerText = "Langkah 3: Terminasi Statement Kode Akhir";
+
+            // Set ulang saklar sirkuit ke 0
             const btnA = document.getElementById('btn-input-a');
             const btnB = document.getElementById('btn-input-b');
             btnA.innerText = "A: 0"; btnB.innerText = "B: 0";
-            btnA.className = "w-16 py-2 bg-slate-900 border border-slate-700 text-slate-300 rounded-xl text-xs font-black tracking-wider transition-all duration-200 shadow-md cursor-pointer";
-            btnB.className = "w-16 py-2 bg-slate-900 border border-slate-700 text-slate-300 rounded-xl text-xs font-black tracking-wider transition-all duration-200 shadow-md cursor-pointer";
+            btnA.className = "w-16 py-2.5 bg-slate-900 border border-slate-700 text-slate-300 rounded-xl text-xs font-black tracking-wider transition-all duration-200 shadow-md cursor-pointer";
+            btnB.className = "w-16 py-2.5 bg-slate-900 border border-slate-700 text-slate-300 rounded-xl text-xs font-black tracking-wider transition-all duration-200 shadow-md cursor-pointer";
             
             const lamp = document.getElementById('lamp-display');
             lamp.className = "w-12 h-12 bg-slate-900 rounded-full border border-slate-700 flex items-center justify-center text-xl text-slate-500 shadow-inner";
-            lamp.innerText = "📁";
+            lamp.innerText = "🔒";
             
             ['btn-next-1', 'btn-next-4', 'btn-next-5'].forEach(id => {
                 const btn = document.getElementById(id);
