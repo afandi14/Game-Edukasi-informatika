@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Interaktif SMAN 1 Tidore</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex items-center justify-center p-2 sm:p-4 selection:bg-indigo-500 selection:text-white">
+
+    <main class="w-full max-w-xl mx-auto bg-slate-900 rounded-3xl shadow-2xl border border-slate-800 overflow-hidden transition-all duration-300">
+        
+        <div class="bg-slate-950 p-4 border-b border-slate-800 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 bg-indigo-600/20 text-indigo-400 rounded-xl flex items-center justify-center text-sm font-bold border border-indigo-500/20 shadow-inner">
+                    ⚡
+                </div>
+                <div>
+                    <h1 class="text-sm font-extrabold text-slate-100 tracking-wide">SELESAIKAn TANTANGAN UNTUK LANJUT</h1>
+                    <p class="text-[10px] text-indigo-400 font-semibold uppercase tracking-wider">SMAN 1 TIDORE KEPULAUAN</p>
+                </div>
+            </div>
+            <div class="flex flex-col items-end">
+                <span class="text-[9px] text-slate-500 font-bold uppercase tracking-widest">Skor</span>
+                <div class="bg-indigo-950 px-3 py-0.5 rounded-lg text-xs font-mono text-amber-400 border border-indigo-800/60 shadow-md">
+                    <span id="global-score" class="font-bold">0</span> <span class="text-[10px] text-slate-500">pts</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="progress-container" class="hidden h-1.5 w-full bg-slate-950 border-b border-slate-800/50">
+            <div id="progress-bar" class="h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-emerald-500 w-0 transition-all duration-500"></div>
+        </div>
+
+        <div id="screen-welcome" class="p-6 sm:p-8 text-center transition-opacity duration-300">
+            <div class="w-20 h-20 bg-indigo-600/10 text-indigo-400 rounded-3xl flex items-center justify-center mx-auto mb-6 text-4xl border border-indigo-500/10 shadow-xl shadow-indigo-950/40">
+                🎮
+            </div>
+            <h2 class="text-2xl font-black text-white mb-3 tracking-tight">Petualangan Literasi & Logika Digital</h2>
+            <p class="text-slate-400 text-xs sm:text-sm mb-8 leading-relaxed max-w-sm mx-auto">
+                Selamat datang! Hadapi <span class="text-indigo-400 font-bold">5 tingkatan tantangan interaktif</span> mulai dari analisis teknologi, gerbang logika, algoritma coding, hingga literasi kritis keamanan informasi.
+            </p>
+            <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800/80 mb-8 text-left">
+                <span class="text-[10px] text-slate-500 uppercase font-black tracking-widest block mb-2">Mentor Informatika Bapak:</span>
+                <div class="text-xs font-bold text-slate-300">Afandi Abbas, S.Kom.</div>
+            </div>
+            <button onclick="startChallenge()" class="w-full bg-indigo-600 hover:bg-indigo-500 active:scale-[0.99] transition-all font-bold py-3.5 rounded-xl text-sm tracking-wide shadow-lg shadow-indigo-600/20 cursor-pointer text-white">
+                Mulai Petualangan Misi ➔
+            </button>
+        </div>
+
+        <div id="screen-mission-1" class="hidden p-5 sm:p-6">
+            <div class="flex justify-between items-center mb-4">
+                <span class="text-[10px] bg-red-500/10 text-red-400 px-2.5 py-1 rounded-md font-extrabold uppercase tracking-widest border border-red-500/10">Misi 1: Analisis Video</span>
+                <span class="text-[11px] text-slate-400 font-medium">Bobot: <span class="text-slate-200 font-bold">100</span> Pts</span>
+            </div>
+            <h3 class="text-xs sm:text-sm font-bold text-slate-200 mb-3 leading-relaxed">Simak video arsitektur komputer berikut secara seksama, analisis informasi tersembunyi di dalamnya!</h3>
+            
+            <div class="aspect-video w-full rounded-2xl overflow-hidden border border-slate-800 mb-4 bg-black shadow-inner">
+                <iframe class="w-full h-full" src="https://www.youtube.com/watch?v=X1wBOUfAm9c" title="Video Edukasi" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+
+            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800/80 mb-4">
+                <label class="block text-[11px] font-bold text-amber-400 uppercase tracking-wider mb-2">Pertanyaan Analitis:</label>
+                <p class="text-xs text-slate-300 mb-4 leading-relaxed">Berdasarkan pemaparan video, komponen internal manakah di dalam CPU yang bertugas mengambil keputusan dan mengontrol eksekusi instruksi data?</p>
+                
+                <div class="flex flex-col gap-2">
+                    <button onclick="selectM1(this, false)" class="w-full text-left p-3 bg-slate-900 hover:bg-slate-800 border border-slate-800 rounded-xl text-xs transition cursor-pointer text-slate-300 font-medium">A. RAM (Random Access Memory)</button>
+                    <button onclick="selectM1(this, true)" class="w-full text-left p-3 bg-slate-900 hover:bg-slate-800 border border-slate-800 rounded-xl text-xs transition cursor-pointer text-slate-300 font-medium">B. CU (Control Unit)</button>
+                    <button onclick="selectM1(this, false)" class="w-full text-left p-3 bg-slate-900 hover:bg-slate-800 border border-slate-800 rounded-xl text-xs transition cursor-pointer text-slate-300 font-medium">C. ALU (Arithmetic Logic Unit)</button>
+                </div>
+            </div>
+
+            <button id="btn-next-1" onclick="submitM1()" class="w-full bg-slate-800 text-slate-500 font-bold py-3 rounded-xl text-sm transition duration-300 cursor-not-allowed" disabled>
+                Kunci Jawaban Analisis ➔
+            </button>
+        </div>
+
+        <div id="screen-mission-2" class="hidden p-5 sm:p-6">
+            <div class="flex justify-between items-center mb-4">
+                <span class="text-[10px] bg-amber-500/10 text-amber-400 px-2.5 py-1 rounded-md font-extrabold uppercase tracking-widest border border-amber-500/10">Misi 2: Logika Sirkuit</span>
+                <span class="text-[11px] text-slate-400 font-medium">Bobot: <span class="text-slate-200 font-bold">100</span> Pts</span>
+            </div>
+            <h3 class="text-xs sm:text-sm font-bold text-slate-200 mb-4 leading-relaxed">Sistem membutuhkan tegangan logika 1. Manipulasi kedua saklar input di bawah untuk menyalakan lampu indikator!</h3>
+
+            <div class="grid grid-cols-3 gap-3 items-center bg-slate-950 p-5 rounded-2xl border border-slate-800/80 min-h-[140px] mb-5 shadow-inner">
+                <div class="flex flex-col gap-3 items-center border-r border-slate-800/60 pr-2">
+                    <span class="text-[9px] text-slate-500 font-bold uppercase tracking-wider">Input Node</span>
+                    <button id="btn-input-a" onclick="toggleInput('A')" class="w-16 py-2 bg-slate-900 border border-slate-700 text-slate-300 rounded-xl text-xs font-black tracking-wider transition-all duration-200 shadow-md cursor-pointer">A: 0</button>
+                    <button id="btn-input-b" onclick="toggleInput('B')" class="w-16 py-2 bg-slate-900 border border-slate-700 text-slate-300 rounded-xl text-xs font-black tracking-wider transition-all duration-200 shadow-md cursor-pointer">B: 0</button>
+                </div>
+                <div class="flex flex-col items-center justify-center">
+                    <span class="text-[9px] text-slate-500 font-bold uppercase tracking-wider mb-3">Processor</span>
+                    <div class="bg-indigo-600/10 text-indigo-400 border border-indigo-500/30 font-extrabold text-sm px-4 py-2 rounded-xl tracking-widest shadow-lg">XOR</div>
+                </div>
+                <div class="flex flex-col items-center justify-center border-l border-slate-800/60 pl-2">
+                    <span class="text-[9px] text-slate-500 font-bold uppercase tracking-wider mb-2">Gate Output</span>
+                    <div id="lamp-display" class="w-12 h-12 bg-slate-900 rounded-full border border-slate-700 flex items-center justify-center text-xl transition-all duration-300 shadow-inner">📁</div>
+                </div>
+            </div>
+
+            <button onclick="submitM2()" class="w-full bg-emerald-600 hover:bg-emerald-500 font-bold py-3 rounded-xl text-sm tracking-wide shadow-lg shadow-emerald-600/10 transition cursor-pointer text-white">
+                Validasi Logika Sirkuit ⚡
+            </button>
+        </div>
+
+        <div id="screen-mission-3" class="hidden p-5 sm:p-6">
+            <div class="flex justify-between items-center mb-4">
+                <span class="text-[10px] bg-emerald-500/10 text-emerald-400 px-2.5 py-1 rounded-md font-extrabold uppercase tracking-widest border border-emerald-500/10">Misi 3: Algoritma Coding</span>
+                <span class="text-[11px] text-slate-400 font-medium">Bobot: <span class="text-slate-200 font-bold">100</span> Pts</span>
+            </div>
+            <h3 class="text-xs sm:text-sm font-bold text-slate-200 mb-2 leading-relaxed">Bagaimana struktur penulisan variabel yang valid pada bahasa pemrograman PHP?</h3>
+            <p class="text-[11px] text-slate-400 mb-4">Klik tombol opsi di bawah secara berurutan sesuai urutan logika algoritma yang tepat ($1 \rightarrow 2 \rightarrow 3$):</p>
+
+            <div class="flex flex-col gap-2.5 mb-5">
+                <button id="code-opt-1" onclick="clickCodeOrder(1, this)" class="w-full text-left p-3 bg-slate-950 border border-slate-800 hover:border-indigo-500/40 rounded-xl text-xs font-mono text-indigo-300 transition duration-150 cursor-pointer shadow-md">... Memberikan nilai data menggunakan operator assignment (=)</button>
+                <button id="code-opt-2" onclick="clickCodeOrder(2, this)" class="w-full text-left p-3 bg-slate-950 border border-slate-800 hover:border-indigo-500/40 rounded-xl text-xs font-mono text-indigo-300 transition duration-150 cursor-pointer shadow-md">... Diawali karakter spesial dollar ($) lalu diikuti nama variabel</button>
+                <button id="code-opt-3" onclick="clickCodeOrder(3, this)" class="w-full text-left p-3 bg-slate-950 border border-slate-800 hover:border-indigo-500/40 rounded-xl text-xs font-mono text-indigo-300 transition duration-150 cursor-pointer shadow-md">... Diakhiri penutup statement tanda semicolon atau titik koma (;)</button>
+            </div>
+
+            <div class="bg-slate-950 p-3.5 rounded-xl border border-slate-800 text-xs text-emerald-400 font-mono min-h-[48px] flex items-center shadow-inner tracking-wide" id="code-preview">
+                Terminal Code: [Belum ada pilihan]
+            </div>
+
+            <button onclick="submitM3()" class="w-full mt-5 bg-indigo-600 hover:bg-indigo-500 font-bold py-3 rounded-xl text-sm tracking-wide shadow-lg shadow-indigo-600/10 transition cursor-pointer text-white">
+                Kompilasi Struktur Kode ➔
+            </button>
+        </div>
+
+        <div id="screen-mission-4" class="hidden p-5 sm:p-6">
+            <div class="flex justify-between items-center mb-4">
+                <span class="text-[10px] bg-purple-500/10 text-purple-400 px-2.5 py-1 rounded-md font-extrabold uppercase tracking-widest border border-purple-500/10">Misi 4: Keamanan Siber</span>
+                <span class="text-[11px] text-slate-400 font-medium">Bobot: <span class="text-slate-200 font-bold">100</span> Pts</span>
+            </div>
+            <h3 class="text-xs sm:text-sm font-bold text-slate-200 mb-3 leading-relaxed">Gunakan kecakapan literasi digitalmu untuk menganalisis studi kasus ancaman berikut:</h3>
+            
+            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800/80 mb-4 max-h-40 overflow-y-auto text-xs text-slate-400 leading-relaxed custom-scrollbar">
+                <span class="text-[9px] bg-amber-500/10 text-amber-400 font-bold px-2 py-0.5 rounded uppercase block w-max mb-2 tracking-wider">Studi Kasus Email Palsu</span>
+                "Seorang pengguna menerima email mendesak yang mengatasnamakan Bank Digital Nasional, mengabarkan bahwa akunnya akan diblokir dalam 24 jam jika tidak segera mengklik tautan verifikasi yang dilampirkan. Saat diteliti, alamat pengirim adalah <code class="text-red-400 font-mono font-bold bg-red-500/5 px-1 rounded">admin@bank-nasional-verifikasi3.com</code> dan tautan tersebut meminta data nomor kartu beserta PIN ATM."
+            </div>
+
+            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800/80 mb-4">
+                <label class="block text-[11px] font-bold text-amber-400 uppercase tracking-wider mb-2">Pertanyaan Evaluasi:</label>
+                <p class="text-xs text-slate-300 mb-4 leading-relaxed">Berdasarkan indikator teks di atas, serangan siber jenis apakah yang sedang dilancarkan penyerang tersebut?</p>
+                
+                <div class="flex flex-col gap-2">
+                    <button onclick="selectM4(this, false)" class="w-full text-left p-3 bg-slate-900 hover:bg-slate-800 border border-slate-800 rounded-xl text-xs transition cursor-pointer text-slate-300 font-medium">A. DDoS Attack (Membanjiri trafik server)</button>
+                    <button onclick="selectM4(this, true)" class="w-full text-left p-3 bg-slate-900 hover:bg-slate-800 border border-slate-800 rounded-xl text-xs transition cursor-pointer text-slate-300 font-medium">B. Phishing (Rekayasa sosial penipuan data)</button>
+                    <button onclick="selectM4(this, false)" class="w-full text-left p-3 bg-slate-900 hover:bg-slate-800 border border-slate-800 rounded-xl text-xs transition cursor-pointer text-slate-300 font-medium">C. Ransomware (Penyanderaan enkripsi berkas)</button>
+                </div>
+            </div>
+
+            <button id="btn-next-4" onclick="submitM4()" class="w-full bg-slate-800 text-slate-500 font-bold py-3 rounded-xl text-sm transition duration-300 cursor-not-allowed" disabled>
+                Analisis Keamanan Siber ➔
+            </button>
+        </div>
+
+        <div id="screen-mission-5" class="hidden p-5 sm:p-6">
+            <div class="flex justify-between items-center mb-4">
+                <span class="text-[10px] bg-cyan-500/10 text-cyan-400 px-2.5 py-1 rounded-md font-extrabold uppercase tracking-widest border border-cyan-500/10">Misi 5: Kecerdasan Buatan (AI)</span>
+                <span class="text-[11px] text-slate-400 font-medium">Bobot: <span class="text-slate-200 font-bold">100</span> Pts</span>
+            </div>
+            <h3 class="text-xs sm:text-sm font-bold text-slate-200 mb-3 leading-relaxed">Tantangan Berpikir Kritis tingkat tinggi (HOTS) terkait perkembangan teknologi masa depan:</h3>
+
+            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800/80 mb-4">
+                <label class="block text-[11px] font-bold text-cyan-400 uppercase tracking-wider mb-2">Kasus Halusinasi Data:</label>
+                <p class="text-xs text-slate-300 mb-4 leading-relaxed">Ketika Generative AI memberikan jawaban yang terdengar sangat meyakinkan namun sebenarnya salah, tidak akurat, atau sepenuhnya fiktif karena keterbatasan basis data, fenomena ini disebut sebagai apa?</p>
+                
+                <div class="flex flex-col gap-2">
+                    <button onclick="selectM5(this, true)" class="w-full text-left p-3 bg-slate-900 hover:bg-slate-800 border border-slate-800 rounded-xl text-xs transition cursor-pointer text-slate-300 font-medium">A. Artificial Hallucination (Halusinasi AI)</button>
+                    <button onclick="selectM5(this, false)" class="w-full text-left p-3 bg-slate-900 hover:bg-slate-800 border border-slate-800 rounded-xl text-xs transition cursor-pointer text-slate-300 font-medium">B. Deep Learning Error (Kegagalan Algoritma)</button>
+                    <button onclick="selectM5(this, false)" class="w-full text-left p-3 bg-slate-900 hover:bg-slate-800 border border-slate-800 rounded-xl text-xs transition cursor-pointer text-slate-300 font-medium">C. Data Overfitting (Data terlalu spesifik)</button>
+                </div>
+            </div>
+
+            <button id="btn-next-5" onclick="submitM5()" class="w-full bg-slate-800 text-slate-500 font-bold py-3 rounded-xl text-sm transition duration-300 cursor-not-allowed" disabled>
+                Evaluasi Logika AI Final ➔
+            </button>
+        </div>
+
+        <div id="screen-result" class="hidden p-6 sm:p-8 text-center">
+            <div class="w-20 h-20 bg-emerald-500/10 text-emerald-400 rounded-full flex items-center justify-center mx-auto mb-4 text-4xl shadow-lg shadow-emerald-950/50">🏆</div>
+            <h2 class="text-2xl font-black text-white mb-1 tracking-tight">Misi Selesai, Digital Hero!</h2>
+            <p class="text-slate-400 text-xs sm:text-sm mb-6 leading-relaxed max-w-xs mx-auto">Selamat! Kamu telah menuntaskan seluruh rantai kompetensi literasi informatika secara komprehensif.</p>
+            
+            <div class="bg-slate-950 p-5 rounded-2xl mb-6 border border-slate-800 max-w-sm mx-auto">
+                <span class="text-[10px] text-slate-500 font-extrabold uppercase tracking-widest block">Total Akumulasi Skor</span>
+                <div id="final-score" class="text-4xl font-black text-amber-400 mt-1 font-mono">0</div>
+                <div class="text-[10px] text-emerald-400 mt-2 font-semibold">Status: Kompeten / Lolos Kurikulum Interaktif</div>
+            </div>
+            <button onclick="resetGame()" class="w-full bg-slate-800 hover:bg-slate-700 font-bold py-3 rounded-xl text-sm transition text-slate-200 cursor-pointer">Main Ulang Materi</button>
+        </div>
+
+    </main>
+
+    <script>
+        let globalScore = 0;
+        let m1Correct = false;
+        let m4Correct = false;
+        let m5Correct = false;
+        let inputA = 0; let inputB = 0;
+        let selectedCodeOrder = [];
+
+        const totalMissions = 5;
+
+        function setProgressBar(missionNumber) {
+            const bar = document.getElementById('progress-bar');
+            const percentage = ((missionNumber - 1) / totalMissions) * 100;
+            bar.style.width = `${percentage}%`;
+        }
+
+        function changeScreen(screenId) {
+            const screens = ['screen-welcome', 'screen-mission-1', 'screen-mission-2', 'screen-mission-3', 'screen-mission-4', 'screen-mission-5', 'screen-result'];
+            screens.forEach(id => document.getElementById(id).classList.add('hidden'));
+            document.getElementById(screenId).classList.remove('hidden');
+        }
+
+        function startChallenge() {
+            document.getElementById('progress-container').classList.remove('hidden');
+            setProgressBar(1);
+            changeScreen('screen-mission-1');
+        }
+
+        // --- MISI 1 (VIDEO) ---
+        function selectM1(element, isCorrect) {
+            m1Correct = isCorrect;
+            element.parentNode.querySelectorAll('button').forEach(btn => {
+                btn.className = "w-full text-left p-3 bg-slate-900 border border-slate-800 rounded-xl text-xs transition cursor-pointer text-slate-400 font-medium";
+            });
+            element.className = "w-full text-left p-3 bg-indigo-600/20 border border-indigo-500 rounded-xl text-xs transition font-semibold text-indigo-300 cursor-pointer shadow-md";
+            
+            const nextBtn = document.getElementById('btn-next-1');
+            nextBtn.disabled = false;
+            nextBtn.className = "w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 rounded-xl text-sm transition shadow-lg shadow-indigo-600/10 cursor-pointer";
+        }
+        function submitM1() {
+            if(m1Correct) globalScore += 100;
+            document.getElementById('global-score').innerText = globalScore;
+            setProgressBar(2);
+            changeScreen('screen-mission-2');
+        }
+
+        // --- MISI 2 (CIRCUIT) ---
+        function toggleInput(type) {
+            if(type === 'A') inputA = inputA === 0 ? 1 : 0;
+            else inputB = inputB === 0 ? 1 : 0;
+            
+            const btnA = document.getElementById('btn-input-a');
+            const btnB = document.getElementById('btn-input-b');
+            btnA.innerText = `A: ${inputA}`; btnB.innerText = `B: ${inputB}`;
+            
+            btnA.className = inputA === 1 ? "w-16 py-2 bg-indigo-600 border border-indigo-400 text-white rounded-xl text-xs font-black tracking-wider shadow-lg shadow-indigo-600/20 cursor-pointer" : "w-16 py-2 bg-slate-900 border border-slate-700 text-slate-400 rounded-xl text-xs font-black tracking-wider cursor-pointer";
+            btnB.className = inputB === 1 ? "w-16 py-2 bg-indigo-600 border border-indigo-400 text-white rounded-xl text-xs font-black tracking-wider shadow-lg shadow-indigo-600/20 cursor-pointer" : "w-16 py-2 bg-slate-900 border border-slate-700 text-slate-400 rounded-xl text-xs font-black tracking-wider cursor-pointer";
+
+            const lamp = document.getElementById('lamp-display');
+            if(inputA ^ inputB) {
+                lamp.className = "w-12 h-12 bg-amber-400 rounded-full flex items-center justify-center text-xl shadow-lg shadow-amber-400/50 text-slate-950 font-black";
+                lamp.innerText = "💡";
+            } else {
+                lamp.className = "w-12 h-12 bg-slate-900 rounded-full border border-slate-700 flex items-center justify-center text-xl text-slate-500 shadow-inner";
+                lamp.innerText = "📁";
+            }
+        }
+        function submitM2() {
+            if(inputA ^ inputB) globalScore += 100;
+            document.getElementById('global-score').innerText = globalScore;
+            setProgressBar(3);
+            changeScreen('screen-mission-3');
+        }
+
+        // --- MISI 3 (CODING) ---
+        function clickCodeOrder(id, element) {
+            if(selectedCodeOrder.includes(id)) return;
+            selectedCodeOrder.push(id);
+            element.className = "w-full text-left p-3 bg-slate-900 border border-slate-800 text-slate-600 rounded-xl text-xs font-mono line-through cursor-not-allowed opacity-40 shadow-none";
+            
+            const mapping = { 2: "$nama", 1: " = 'Fandi'", 3: ";" };
+            const previewText = selectedCodeOrder.map(i => mapping[i]).join("");
+            document.getElementById('code-preview').innerText = `Terminal Code: ${previewText}`;
+        }
+        function submitM3() {
+            if(JSON.stringify(selectedCodeOrder) === JSON.stringify([2, 1, 3])) globalScore += 100;
+            document.getElementById('global-score').innerText = globalScore;
+            setProgressBar(4);
+            changeScreen('screen-mission-4');
+        }
+
+        // --- MISI 4 (CYBER SECURITY) ---
+        function selectM4(element, isCorrect) {
+            m4Correct = isCorrect;
+            element.parentNode.querySelectorAll('button').forEach(btn => {
+                btn.className = "w-full text-left p-3 bg-slate-900 border border-slate-800 rounded-xl text-xs transition cursor-pointer text-slate-400 font-medium";
+            });
+            element.className = "w-full text-left p-3 bg-purple-600/20 border border-purple-500 rounded-xl text-xs transition font-semibold text-purple-300 cursor-pointer shadow-md";
+            
+            const nextBtn = document.getElementById('btn-next-4');
+            nextBtn.disabled = false;
+            nextBtn.className = "w-full bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 rounded-xl text-sm transition shadow-lg shadow-purple-600/10 cursor-pointer";
+        }
+        function submitM4() {
+            if(m4Correct) globalScore += 100;
+            document.getElementById('global-score').innerText = globalScore;
+            setProgressBar(5);
+            changeScreen('screen-mission-5');
+        }
+
+        // --- MISI 5 (AI LITERACY) ---
+        function selectM5(element, isCorrect) {
+            m5Correct = isCorrect;
+            element.parentNode.querySelectorAll('button').forEach(btn => {
+                btn.className = "w-full text-left p-3 bg-slate-900 border border-slate-800 rounded-xl text-xs transition cursor-pointer text-slate-400 font-medium";
+            });
+            element.className = "w-full text-left p-3 bg-cyan-600/20 border border-cyan-500 rounded-xl text-xs transition font-semibold text-cyan-300 cursor-pointer shadow-md";
+            
+            const nextBtn = document.getElementById('btn-next-5');
+            nextBtn.disabled = false;
+            nextBtn.className = "w-full bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-xl text-sm transition shadow-lg shadow-cyan-600/10 cursor-pointer";
+        }
+        function submitM5() {
+            if(m5Correct) globalScore += 100;
+            document.getElementById('global-score').innerText = globalScore;
+            
+            // Finish Progress Bar & Go to Result
+            document.getElementById('progress-bar').style.width = '100%';
+            document.getElementById('final-score').innerText = globalScore;
+            changeScreen('screen-result');
+        }
+
+        function resetGame() {
+            globalScore = 0;
+            m1Correct = false; m4Correct = false; m5Correct = false;
+            inputA = 0; inputB = 0;
+            selectedCodeOrder = [];
+            document.getElementById('global-score').innerText = 0;
+            document.getElementById('code-preview').innerText = "Terminal Code: [Belum ada pilihan]";
+            
+            // Re-enable & reset coding buttons UI
+            [1,2,3].forEach(i => {
+                document.getElementById(`code-opt-${i}`).className = "w-full text-left p-3 bg-slate-950 border border-slate-800 hover:border-indigo-500/40 rounded-xl text-xs font-mono text-indigo-300 transition duration-150 cursor-pointer shadow-md";
+            });
+            
+            toggleInput('A'); if(inputA===1) toggleInput('A');
+            toggleInput('B'); if(inputB===1) toggleInput('B');
+            
+            // Reset next button states
+            ['btn-next-1', 'btn-next-4', 'btn-next-5'].forEach(id => {
+                const btn = document.getElementById(id);
+                btn.disabled = true;
+                btn.className = "w-full bg-slate-800 text-slate-500 font-bold py-3 rounded-xl text-sm transition duration-300 cursor-not-allowed";
+            });
+
+            document.getElementById('progress-container').classList.add('hidden');
+            changeScreen('screen-welcome');
+        }
+    </script>
+</body>
+</html>
